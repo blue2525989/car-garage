@@ -1,11 +1,17 @@
 <template>
   <div>
-    <label>
+    <label id="main-title">
       {{ title }}
     </label>
-     <input type="file" accept="image/*" capture>
      <div>
-       <carousel :items="pictures" :item-id="'picId'" :image-src="'url'"></carousel>
+       <carousel
+        id="img-carousel"
+        :items="pictures"
+        :item-id="'picId'"
+        :image-src="'url'"
+        :height="'250px'"
+        :width="'340px'"
+        />
      </div>
   </div>
 </template>
@@ -21,18 +27,24 @@ export default {
   },
   data() {
     return {
-      title: 'This is my fancy title',
+      title: 'Subaru Garage',
       pictures: []
     }
   },
   created() {
-    this.pictures.push({url: 'picture1.com', name: 'picture 1', picId: 1})
-    this.pictures.push({url: 'picture2.com', name: 'picture 2', picId: 2})
-    this.pictures.push({url: 'picture3.com', name: 'picture 3', picId: 3})
+    // simulate a API call to get images
+    this.pictures.push({url: require('../assets/images/racing_sti.jpg'), name: 'racing_sti.jpg', picId: 1})
+    this.pictures.push({url: require('../assets/images/2019_subaru_wrx_sti_angularfront.jpg'), name: '2019_subaru_wrx_sti_angularfront', picId: 2})
+    this.pictures.push({url: require('../assets/images/19_WRX_KUO_024_M7Y.png'), name: '19_WRX_KUO_024_M7Y', picId: 3})
   }
 }
 </script>
 
 <style>
-
+#main-title {
+  margin-left: 42%;
+}
+#img-carousel {
+  margin-left: 33%;
+}
 </style>
