@@ -50,7 +50,7 @@ export default {
     }
   },
   created() {
-    this.currentIdx = this.items[0][this.itemId]
+    this.currentIdx = 0
     this.findMaxIdx()
   },
   methods: {
@@ -80,7 +80,7 @@ export default {
   z-index: 1;
   color: gray;
   font-size: 40px;
-  margin-top: 50%;
+  top: 50%;
   grid-column-start: 1;
   grid-column-end: 2;
   grid-row-start: 1;
@@ -95,8 +95,6 @@ export default {
 }
 .display-text {
   color: gray;
-  /* background: lightgray;
-  opacity: 0.7; */
   font-weight: bold;
   z-index: 1;
   position: absolute;
@@ -112,7 +110,7 @@ export default {
   z-index: 1;
   color: gray;
   font-size: 40px;
-  margin-top: 50%;
+  top: 50%;
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 1;
