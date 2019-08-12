@@ -9,6 +9,7 @@
         :items="pictures"
         :item-id="'picId'"
         :image-src="'url'"
+        :display-text="'name'"
         :height="'250px'"
         :width="'340px'"
         />

@@ -1,13 +1,14 @@
 <template>
   <div class="carousel-main">
     <div class="left-click-div">
-      <span id="left-click" class="left-click" @click="leftClick">&#60;</span>
+      <i id="left-click" class="arrow prev left-click" @click="leftClick"/>
     </div>
     <div class="item-div" :style="{ 'height': height, 'width': width}">
        <img :src="items[currentIdx][imageSrc]" :alt="items[currentIdx][imageSrc]" :height="height" :width="width">
+       <span v-if="displayText" id="display-text" class="display-text">{{ items[currentIdx][displayText] }}</span>
     </div>
     <div class="right-click-div">
-      <span id="right-click" class="right-click" @click="rightClick">&#62;</span>
+      <i id="right-click" class="arrow next right-click" @click="rightClick"/>
     </div>
   </div>
 </template>
@@ -27,6 +28,10 @@ export default {
     imageSrc: {
       type: [String, Number],
       default: () => 'src'
+    },
+    displayText: {
+      type: String,
+      default: () => undefined
     },
     height: {
       type: String,
@@ -64,13 +69,17 @@ export default {
 
 <style>
 .carousel-main {
+  position: relative;
   display: inline-grid;
-  grid-template-columns: repeat(15vw, 3);
+  grid-template-columns: 0 100% 0;
   grid-template-rows: 1;
 }
 .left-click-div {
+  cursor: pointer;
+  position: absolute;
+  z-index: 1;
   color: gray;
-  font-size: 20px;
+  font-size: 40px;
   margin-top: 50%;
   grid-column-start: 1;
   grid-column-end: 2;
@@ -84,13 +93,63 @@ export default {
   grid-row-start: 1;
   grid-row-end: 2;
 }
-.right-click-div {
+.display-text {
   color: gray;
-  font-size: 20px;
+  /* background: lightgray;
+  opacity: 0.7; */
+  font-weight: bold;
+  z-index: 1;
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  transform: translate(-50%, -90%);
+
+}
+.right-click-div {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  z-index: 1;
+  color: gray;
+  font-size: 40px;
   margin-top: 50%;
   grid-column-start: 3;
   grid-column-end: 4;
   grid-row-start: 1;
   grid-row-end: 2;
+}
+.arrow {
+  display: inline-block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: transparent;
+  text-indent: -9999px;
+  border-top: 2px solid #bfbfbf;
+  border-left: 2px solid #bfbfbf;
+  transition: all 250ms ease-in-out;
+  text-decoration: none;
+  color: transparent;
+}
+.arrow:hover {
+  border-color: gray;
+  border-width: 5px;
+}
+.arrow:before {
+  display: block;
+  height: 200%;
+  width: 200%;
+  margin-left: -50%;
+  margin-top: -50%;
+  content: "";
+  transform: rotate(45deg);
+}
+.arrow.prev {
+  transform: rotate(-45deg);
+  left: 0;
+}
+.arrow.next {
+  transform: rotate(135deg);
+  right: 0;
 }
 </style>
