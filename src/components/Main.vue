@@ -20,6 +20,7 @@
 <script>
 
 import Carousel from './Carousel.vue'
+import fileProcesssor from '../services/fileProcessor.js'
 
 export default {
   name: 'Main',
@@ -33,6 +34,7 @@ export default {
     }
   },
   created() {
+    fileProcesssor.processCSV()
     // simulate a API call to get images
     this.pictures.push({url: require('../assets/images/racing_sti.jpg'), name: 'racing_sti.jpg', picId: 1})
     this.pictures.push({url: require('../assets/images/2019_subaru_wrx_sti_angularfront.jpg'), name: '2019_subaru_wrx_sti_angularfront', picId: 2})
