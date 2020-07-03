@@ -1,15 +1,23 @@
 
-import { Bar } from 'vue-chartjs'
-// const { reactiveProp } = mixins
+import { Bar, mixins } from 'vue-chartjs'
+const { reactiveProp } = mixins
 
 export default {
   extends: Bar,
-  // mixins: [reactiveProp],
-  props: {
-    options: {
-      type: Object,
-      required: false,
-      default: {}
+  mixins: [reactiveProp],
+  data() {
+    return {
+        options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+      }
     }
   },
   mounted () {

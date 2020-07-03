@@ -5,8 +5,14 @@
     </label>
     <input id="file-upload" ref="file" type="file" accept=".csv" @change="handleFileUpload"/>
     <button @click="submitFile">Submit</button>
-    <div>
-      <data-chart :tuneFile="file"> </data-chart>
+    <div v-if="file">
+      <div  v-for="parameters in file.data">
+        <div v-if="parameters.label === 'RPM (RPM)'" >
+
+        <data-chart :tuneFile="parameters"> </data-chart>
+          {{ parameters.label}}
+        </div>
+    </div>
     </div>
   </div>
 </template>
@@ -52,7 +58,8 @@ export default {
       console.log(payload)
 
       await axios.post('/upload-file', payload, {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
       })
     },
     processCSV(file) {
@@ -72,15 +79,24 @@ export default {
         }
       }
 
-      // let columns = csvString.split(/[,]/)
-      // console.log(chunks)
 
-      // for (let i = 0; i < chunks.length; i++) {
-      //   console.log(chunks[i])
-      //   if (i === 30) break
-      // }
+      let finalDataObj = {}
 
-      this.file.data = csvObj
+      for (let i = 0; i < csvObj.length; i++) {
+        for (let j = 0; j < csvObj[i].length; j++) {
+          if (typeof(finalDataObj[j]) !== 'object') {
+            finalDataObj[j] = {}
+            finalDataObj[j].label = csvObj[i][j]
+            finalDataObj[j].data = []
+          } else {
+            finalDataObj[j].data.push(csvObj[i][j])
+          }
+        }
+      }
+
+      console.log(finalDataObj)
+      this.file.data = finalDataObj
+
     }
   }
 }

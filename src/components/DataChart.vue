@@ -1,6 +1,6 @@
 <template>
-  <div class="medium">
-    <data-chart :chart-data="data" :options="options"></data-chart>
+  <div class="small">
+    <data-chart :chart-data="data"></data-chart>
     <button @click="fillData()">Populate</button>
   </div>
 </template>
@@ -22,16 +22,7 @@ export default {
   },
   data () {
     return {
-      data: undefined,
-      options: {
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-        }
-      }
+      data: {}
     }
   },
   mounted() {
@@ -39,26 +30,47 @@ export default {
   },
   methods: {
     fillData() {
+      console.log('fill data', this.tuneFile)
       if (this.tuneFile) {
-        this.data = {}
-        this.data.labels = this.tuneFile[0]
-        this.data.datasets = []
-
-
-        for (let j = 1; j < this.tuneFile.length; j++) {
-          let tempData = []
-          for (let i = 0; i < this.tuneFile[j].length; i++) {
-            tempData.push(this.tuneFile[j])
-          }
-          this.data.datasets.push({
-            label: this.data.labels[i],
-            backgroundColor: '#f87979',
-            data: tempData
-          })
+        this.data = {
+          datasets: [],
+          labels: []
         }
+
+        let xAxis = 0
+
+        for (let record of this.tuneFile.data) {
+          console.log(record)
+          this.data.datasets.push({
+            label: this.tuneFile.label,
+            backgroundColor: '#0000ff',
+            data: record
+          })
+          xAxis++
+          if (xAxis === 50) {
+            break
+          }
+        }
+
+        this.data.labels.push(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000)
+        // console.log(this.tuneFile.data)
+        // this.data.datasets.push({
+        //   label: this.tuneFile.label,
+        //   backgroundColor: '#0000ff',
+        //   data: this.tuneFile.data
+        // })
+
+        // this.data.labels.push(this.tuneFile.label)
       }
     }
   }
 }
 
 </script>
+
+<style>
+  .small {
+    max-width: 90%;
+    max-height: 90%;
+  }
+</style>
