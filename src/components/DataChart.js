@@ -1,22 +1,27 @@
 
-import { Bar, mixins } from 'vue-chartjs'
+import { Line, mixins } from 'vue-chartjs'
 const { reactiveProp } = mixins
 
 export default {
-  extends: Bar,
+  extends: Line,
   mixins: [reactiveProp],
   data() {
     return {
         options: {
+        xAxisId: 'Time',
         responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-            yAxes: [{
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
+        layout: {
+          padding: 50
         }
+        // maintainAspectRatio: false
+        // ,
+        // scales: {
+        //     yAxes: [{
+        //         ticks: {
+        //             beginAtZero: true
+        //         }
+        //     }]
+        // }
       }
     }
   },

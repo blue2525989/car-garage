@@ -18,6 +18,11 @@ export default {
       type: Object,
       required: false,
       default: undefined
+    },
+    time: {
+      type: Object,
+      required: false,
+      default: undefined
     }
   },
   data () {
@@ -36,31 +41,14 @@ export default {
           datasets: [],
           labels: []
         }
-
-        let xAxis = 0
-
-        for (let record of this.tuneFile.data) {
-          console.log(record)
-          this.data.datasets.push({
-            label: this.tuneFile.label,
-            backgroundColor: '#0000ff',
-            data: record
-          })
-          xAxis++
-          if (xAxis === 50) {
-            break
-          }
+        this.data.datasets.push({
+          label: this.tuneFile.label,
+          backgroundColor: '#0000ff',
+          data: this.tuneFile.data
+        })
+        for (let time in this.time.data) {
+          this.data.labels.push(time)
         }
-
-        this.data.labels.push(0, 1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000)
-        // console.log(this.tuneFile.data)
-        // this.data.datasets.push({
-        //   label: this.tuneFile.label,
-        //   backgroundColor: '#0000ff',
-        //   data: this.tuneFile.data
-        // })
-
-        // this.data.labels.push(this.tuneFile.label)
       }
     }
   }
@@ -70,7 +58,8 @@ export default {
 
 <style>
   .small {
-    max-width: 90%;
-    max-height: 90%;
+    width: 50%;
+    margin: 0 auto;
+    height: 600px;
   }
 </style>
